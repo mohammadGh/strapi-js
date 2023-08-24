@@ -1,1 +1,3 @@
-export { default as userRoutes } from './routes'
+import { getStrapiAgent } from './lib/strapiAgent'
+
+const strapiAgent = getStrapiAgent()
