@@ -13,6 +13,7 @@ export interface PaginationByOffset {
 }
 
 export interface StrapiRequestParams {
+  token?: string
   fields?: Array<string>
   populate?: string | Array<string> | object
   sort?: string | Array<string>

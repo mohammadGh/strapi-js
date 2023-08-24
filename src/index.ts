@@ -1,3 +1,3 @@
-import { getStrapiAgent } from './lib/strapiAgent'
+import { getStrapiClient } from './lib/strapiClient'
 
-const strapiAgent = getStrapiAgent()
+const strapiAgent = getStrapiClient()

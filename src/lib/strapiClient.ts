@@ -22,14 +22,16 @@ function defaultErrors(err: FetchError) {
   }
 }
 
-export function getStrapiAgent() {
+export function getStrapiClient() {
   const baseURL = `${defaults.url}/${defaults.prefix}/${defaults.version}`
 
-  return async <T> (url: string, token: string | (() => string), fetchOptions: FetchOptions<'json'> = {}): Promise<T> => {
+  return async <T> (url: string, fetchOptions: FetchOptions<'json'> = {}): Promise<T> => {
     const headers: HeadersInit = {}
 
-    if (token)
-      headers.Authorization = `Bearer ${token}`
+    if (fetchOptions.params && fetchOptions.params.token) {
+      headers.Authorization = `Bearer ${fetchOptions.params.token}`
+      delete fetchOptions.params.token
+    }
 
     if (fetchOptions.params) {
       const params = stringify(fetchOptions.params, { encodeValuesOnly: true })
