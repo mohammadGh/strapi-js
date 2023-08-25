@@ -11,14 +11,19 @@ import type {
 } from './types'
 import { getStrapiClient } from './strapiClient'
 
-const url = 'http://localhost:3000/'
+const url = 'http://cms.gazmeh.ir:1667/'
 
-export function useStrapiAuth() {
+export function StrapiUserSdk() {
   const client = getStrapiClient()
   // const config = process.server ? useRuntimeConfig() : useRuntimeConfig().public
 
-  const getCurrentUser = async (): Promise<StrapiUser> => {
-    return await client('/users/me', { params: {} })
+  const getCurrentUser = async (token: string): Promise<StrapiUser> => {
+    // eslint-disable-next-line no-console
+    console.log('hello from getCurrentUser, the jwt token is: ', token)
+    if (token)
+      return await client('/users/me', { params: { token } })
+    else
+      throw new Error('jwt token not provided')
   }
 
   /**
@@ -31,7 +36,7 @@ export function useStrapiAuth() {
    */
   const login = async (data: StrapiAuthenticationData): Promise<StrapiAuthenticationResponse> => {
     const { jwt }: StrapiAuthenticationResponse = await client('/auth/local', { method: 'POST', body: data })
-    const user = await getCurrentUser()
+    const user = await getCurrentUser(jwt)
     return {
       user,
       jwt,
@@ -49,7 +54,7 @@ export function useStrapiAuth() {
    */
   const register = async (data: StrapiRegistrationData): Promise<StrapiAuthenticationResponse> => {
     const { jwt }: StrapiAuthenticationResponse = await client('/auth/local/register', { method: 'POST', body: data })
-    const user = await getCurrentUser()
+    const user = await getCurrentUser(jwt)
     return {
       user,
       jwt,
@@ -78,7 +83,7 @@ export function useStrapiAuth() {
    */
   const resetPassword = async (data: StrapiResetPasswordData): Promise<StrapiAuthenticationResponse> => {
     const { jwt }: StrapiAuthenticationResponse = await client('/auth/reset-password', { method: 'POST', body: data })
-    const user = await getCurrentUser()
+    const user = await getCurrentUser(jwt)
     return {
       user,
       jwt,
@@ -128,7 +133,7 @@ export function useStrapiAuth() {
    */
   const authenticateProvider = async (provider: StrapiAuthProvider, access_token: string): Promise<StrapiAuthenticationResponse> => {
     const { jwt }: StrapiAuthenticationResponse = await client(`/auth/${provider}/callback`, { method: 'GET', params: { access_token } })
-    const user = await getCurrentUser()
+    const user = await getCurrentUser(jwt)
     return {
       user,
       jwt,

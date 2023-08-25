@@ -4,8 +4,8 @@ import { stringify } from 'qs'
 import type { StrapiErrorResponse } from './types'
 
 const defaults = {
-  url: 'http://localhost:1337',
-  prefix: '/api',
+  url: 'http://cms.gazmeh.ir:1667',
+  prefix: 'api',
   version: 'v4',
   cookie: {},
   auth: {},
@@ -23,7 +23,7 @@ function defaultErrors(err: FetchError) {
 }
 
 export function getStrapiClient() {
-  const baseURL = `${defaults.url}/${defaults.prefix}/${defaults.version}`
+  const baseURL = `${defaults.url}/${defaults.prefix}/`
 
   return async <T> (url: string, fetchOptions: FetchOptions<'json'> = {}): Promise<T> => {
     const headers: HeadersInit = {}

@@ -1,7 +1,7 @@
 import type { StrapiRequestParams } from './types'
 import { getStrapiClient } from './strapiClient'
 
-export function getStrapiSdk() {
+export function StrapiContentSdk() {
   const client = getStrapiClient()
   const version = 'v4'
   if (version !== 'v4')
