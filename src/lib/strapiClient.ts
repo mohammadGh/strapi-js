@@ -27,18 +27,31 @@ export function getStrapiClient() {
 
   return async <T> (url: string, fetchOptions: FetchOptions<'json'> = {}): Promise<T> => {
     const headers: HeadersInit = {}
-
-    if (fetchOptions.params && fetchOptions.params.token) {
-      headers.Authorization = `Bearer ${fetchOptions.params.token}`
-      delete fetchOptions.params.token
-    }
+    let originalHeaders = {}
 
     if (fetchOptions.params) {
-      const params = stringify(fetchOptions.params, { encodeValuesOnly: true })
-      if (params)
-        url = `${url}?${params}`
+      // if original request has Authorization header, we try to use it for cms authorization
+      if (fetchOptions.params.headers) {
+        headers.Authorization = fetchOptions.params.headers.Authorization || fetchOptions.params.headers.authorization
+        delete fetchOptions.params.headers.Authorization
+        delete fetchOptions.params.headers.authorization
+        originalHeaders = { ...fetchOptions.params.headers }
+        delete fetchOptions.params.headers
+      }
 
-      delete fetchOptions.params
+      // if explicity provided a token for cms we use it for Authorization header
+      if (fetchOptions.params.token) {
+        headers.Authorization = `Bearer ${fetchOptions.params.token}`
+        delete fetchOptions.params.token
+      }
+
+      if (fetchOptions.params) {
+        const params = stringify(fetchOptions.params, { encodeValuesOnly: true })
+        if (params)
+          url = `${url}?${params}`
+
+        delete fetchOptions.params
+      }
     }
 
     try {
@@ -47,7 +60,7 @@ export function getStrapiClient() {
         baseURL,
         headers: {
           ...headers,
-          ...fetchOptions.headers,
+          ...originalHeaders,
         },
         ...fetchOptions,
       })
