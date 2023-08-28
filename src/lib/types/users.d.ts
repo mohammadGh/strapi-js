@@ -30,34 +30,34 @@ export interface StrapiAuthenticationResponse {
   jwt: string
 }
 
-export interface StrapiAuthenticationData {
+export interface StrapiAuthenticationRequest {
   identifier: string
   password: string
 }
 
-export interface StrapiRegistrationData {
+export interface StrapiRegistrationRequest {
   username?: string
   email: string
   password: string
   [field: string]: string | number | boolean | object | Array<string | number | boolean | object>
 }
 
-export interface StrapiForgotPasswordData {
+export interface StrapiForgotPasswordRequest {
   email: string
 }
 
-export interface StrapiResetPasswordData {
+export interface StrapiResetPasswordRequest {
   code: string
   password: string
   passwordConfirmation: string
 }
 
-export interface StrapiChangePasswordData {
+export interface StrapiChangePasswordRequest {
   currentPassword: string
   password: string
   passwordConfirmation: string
 }
 
-export interface StrapiEmailConfirmationData {
+export interface StrapiEmailConfirmationRequest {
   email: string
 }

@@ -1,12 +1,12 @@
 import type {
   StrapiAuthProvider,
-  StrapiAuthenticationData,
+  StrapiAuthenticationRequest,
   StrapiAuthenticationResponse,
-  StrapiChangePasswordData,
-  StrapiEmailConfirmationData,
-  StrapiForgotPasswordData,
-  StrapiRegistrationData,
-  StrapiResetPasswordData,
+  StrapiChangePasswordRequest,
+  StrapiEmailConfirmationRequest,
+  StrapiForgotPasswordRequest,
+  StrapiRegistrationRequest,
+  StrapiResetPasswordRequest,
   StrapiUser,
 } from './types'
 import { getStrapiClient } from './strapiClient'
@@ -31,12 +31,12 @@ export function StrapiUserSdk() {
   /**
    * Authenticate user & retrieve his JWT
    *
-   * @param  {StrapiAuthenticationData} data - User authentication form: `identifier`, `password`
+   * @param  {StrapiAuthenticationRequest} data - User authentication form: `identifier`, `password`
    * @param  {string} data.identifier - The email or username of the user
    * @param  {string} data.password - The password of the user
    * @returns Promise<StrapiAuthenticationResponse>
    */
-  const login = async (data: StrapiAuthenticationData): Promise<StrapiAuthenticationResponse> => {
+  const login = async (data: StrapiAuthenticationRequest): Promise<StrapiAuthenticationResponse> => {
     const { jwt }: StrapiAuthenticationResponse = await client('/auth/local', { method: 'POST', body: data })
     const user = await getCurrentUser(jwt)
     return {
@@ -48,13 +48,13 @@ export function StrapiUserSdk() {
   /**
    * Register a new user & retrieve JWT
    *
-   * @param  {StrapiRegistrationData} data - New user registration form: `username`, `email`, `password`
+   * @param  {StrapiRegistrationRequest} data - New user registration form: `username`, `email`, `password`
    * @param  {string} data.username - Username of the new user
    * @param  {string} data.email - Email of the new user
    * @param  {string} data.password - Password of the new user
    * @returns Promise<StrapiAuthenticationResponse>
    */
-  const register = async (data: StrapiRegistrationData): Promise<StrapiAuthenticationResponse> => {
+  const register = async (data: StrapiRegistrationRequest): Promise<StrapiAuthenticationResponse> => {
     const { jwt }: StrapiAuthenticationResponse = await client('/auth/local/register', { method: 'POST', body: data })
     const user = await getCurrentUser(jwt)
     return {
@@ -66,24 +66,24 @@ export function StrapiUserSdk() {
   /**
    * Send an email to a user in order to reset his password
    *
-   * @param  {StrapiForgotPasswordData} data - Forgot password form: `email`
+   * @param  {StrapiForgotPasswordRequest} data - Forgot password form: `email`
    * @param  {string} data.email - Email of the user who forgot his password
    * @returns Promise<void>
    */
-  const forgotPassword = async (data: StrapiForgotPasswordData): Promise<void> => {
+  const forgotPassword = async (data: StrapiForgotPasswordRequest): Promise<void> => {
     await client('/auth/forgot-password', { method: 'POST', body: data })
   }
 
   /**
    * Reset the user password
    *
-   * @param  {StrapiResetPasswordData} data - Reset password form: `code`, `password`, `passwordConfirmation`
+   * @param  {StrapiResetPasswordRequest} data - Reset password form: `code`, `password`, `passwordConfirmation`
    * @param  {string} data.code - Code received by email after calling the `forgotPassword` method
    * @param  {string} data.password - New password of the user
    * @param  {string} data.passwordConfirmation - Confirmation of the new password of the user
    * @returns Promise<StrapiAuthenticationResponse>
    */
-  const resetPassword = async (data: StrapiResetPasswordData): Promise<StrapiAuthenticationResponse> => {
+  const resetPassword = async (data: StrapiResetPasswordRequest): Promise<StrapiAuthenticationResponse> => {
     const { jwt }: StrapiAuthenticationResponse = await client('/auth/reset-password', { method: 'POST', body: data })
     const user = await getCurrentUser(jwt)
     return {
@@ -95,25 +95,25 @@ export function StrapiUserSdk() {
   /**
    * Change the user password
    *
-   * @param  {StrapiChangePasswordData} data - Change password form: `currentPassword`, `password`, `passwordConfirmation`
+   * @param  {StrapiChangePasswordRequest} data - Change password form: `currentPassword`, `password`, `passwordConfirmation`
    * @param  {string} data.currentPassword - Current password of the user
    * @param  {string} data.password - New password of the user
    * @param  {string} data.passwordConfirmation - Confirmation of the new password of the user
    * @returns Promise<void>
    */
-  const changePassword = async (data: StrapiChangePasswordData, token: string = '', headers: Record<string, string> = {}): Promise<void> => {
+  const changePassword = async (data: StrapiChangePasswordRequest, token: string = '', headers: Record<string, string> = {}): Promise<StrapiAuthenticationResponse> => {
     authTokenPrecondition(token, headers)
-    await client('/auth/change-password', { method: 'POST', body: data, params: { token, headers } })
+    return await client('/auth/change-password', { method: 'POST', body: data, params: { token, headers } })
   }
 
   /**
    * Send programmatically an email to a user in order to confirm his account
    *
-   * @param  {StrapiEmailConfirmationData} data - Email confirmation form: `email`
+   * @param  {StrapiEmailConfirmationRequest} data - Email confirmation form: `email`
    * @param  {string} data.email - Email of the user who want to be confirmed
    * @returns Promise<void>
    */
-  const sendEmailConfirmation = async (data: StrapiEmailConfirmationData): Promise<void> => {
+  const sendEmailConfirmation = async (data: StrapiEmailConfirmationRequest): Promise<void> => {
     await client('/auth/send-email-confirmation', { method: 'POST', body: data })
   }
 
