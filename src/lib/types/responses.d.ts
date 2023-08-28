@@ -1,10 +1,8 @@
 export interface StrapiErrorResponse {
-  error: {
     status: number
     name: string
     message: string
     details: Record<string, unknown>
-  }
 }
 
 export interface StrapiResponseData<T> {

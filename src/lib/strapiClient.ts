@@ -66,8 +66,8 @@ export function getStrapiClient() {
       })
     }
     catch (err: any) {
-      const e: StrapiErrorResponse = err.data || defaultErrors(err)
-      throw e
+      const strapiError: StrapiErrorResponse = err.data?.error || defaultErrors(err)
+      throw strapiError
     }
   }
 }
