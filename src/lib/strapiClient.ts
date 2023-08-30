@@ -39,7 +39,7 @@ export function getStrapiClient() {
         delete fetchOptions.params.headers
       }
 
-      // if explicity provided a token for cms we use it for Authorization header
+      // if explicity a token provided for cms we use it for Authorization header
       if (fetchOptions.params.token) {
         headers.Authorization = `Bearer ${fetchOptions.params.token}`
         delete fetchOptions.params.token
