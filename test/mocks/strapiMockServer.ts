@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import loginBadRequestResponse from './loginBadRequestResponse.json'
