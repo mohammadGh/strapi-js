@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { StrapiContentSdk, StrapiUserSdk } from '../src'
 import type { StrapiErrorResponse } from '../src/lib/types'
