@@ -39,7 +39,7 @@ describe('user-sdk login method', () => {
     }
   })
 
-  it('should throwing bad credential with wrong password', async () => {
+  it('should throwing invalid identifier or password with wrong password', async () => {
     try {
       await strapiUserSdk.login({
         identifier: 'valid-user',
@@ -48,12 +48,12 @@ describe('user-sdk login method', () => {
     }
     catch (err: any) {
       const strapiError: StrapiErrorResponse = err
-      expect(strapiError.status).toEqual(401)
-      expect(strapiError.message).toEqual('Missing or invalid credentials')
+      expect(strapiError.status).toEqual(400)
+      expect(strapiError.message).toEqual('Invalid identifier or password')
     }
   })
 
-  it('should successfully login with correct credentials', async () => {
+  it('should successfully logged in with correct credentials', async () => {
     const { user, jwt } = await strapiUserSdk.login({
       identifier: 'valid-user',
       password: 'valid-password',
