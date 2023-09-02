@@ -1,19 +1,19 @@
 {
-    "data": null,
-    "error": {
-        "status": 400,
-        "name": "ValidationError",
-        "message": "identifier is a required field",
-        "details": {
-            "errors": [
-                {
-                    "path": [
-                        "identifier"
-                    ],
-                    "message": "identifier is a required field",
-                    "name": "ValidationError"
-                }
-            ]
+  "data": null,
+  "error": {
+    "status": 400,
+    "name": "ValidationError",
+    "message": "identifier is a required field",
+    "details": {
+      "errors": [
+        {
+          "path": [
+            "identifier"
+          ],
+          "message": "identifier is a required field",
+          "name": "ValidationError"
         }
+      ]
     }
+  }
 }

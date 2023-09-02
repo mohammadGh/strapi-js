@@ -1,13 +1,13 @@
 {
-    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY5MzQwNDMzMCwiZXhwIjoxNjk1OTk2MzMwfQ.YhY9SKlDHGmfzWR-m6S1knoltkuH7VwS_UAvwqutN7U",
-    "user": {
-        "id": 1,
-        "username": "valid-username",
-        "email": "valid-user-name@gmail.com",
-        "provider": "local",
-        "confirmed": true,
-        "blocked": false,
-        "createdAt": "2023-05-06T12:22:01.466Z",
-        "updatedAt": "2023-08-30T14:04:01.458Z"
-    }
+  "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImlhdCI6MTY5MzQwNDMzMCwiZXhwIjoxNjk1OTk2MzMwfQ.YhY9SKlDHGmfzWR-m6S1knoltkuH7VwS_UAvwqutN7U",
+  "user": {
+    "id": 1,
+    "username": "valid-username",
+    "email": "valid-user-name@gmail.com",
+    "provider": "local",
+    "confirmed": true,
+    "blocked": false,
+    "createdAt": "2023-05-06T12:22:01.466Z",
+    "updatedAt": "2023-08-30T14:04:01.458Z"
+  }
 }
