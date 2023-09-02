@@ -16,15 +16,9 @@ const url = 'http://cms.gazmeh.ir:1667/'
 export function StrapiUserSdk() {
   const client = getStrapiClient()
 
-  const authTokenPrecondition = (token: string, headers: Record<string, string> = {}): boolean => {
-    if (!token && !headers.Authorization && !headers.authorization)
-      throw new Error('Authorization token not provided')
-    return true
-  }
   // const config = process.server ? useRuntimeConfig() : useRuntimeConfig().public
 
   const getCurrentUser = async (token: string = '', headers: Record<string, string> = {}): Promise<StrapiUser> => {
-    authTokenPrecondition(token, headers)
     return await client('/users/me', { params: { token, headers } })
   }
 
@@ -37,8 +31,7 @@ export function StrapiUserSdk() {
    * @returns Promise<StrapiAuthenticationResponse>
    */
   const login = async (data: StrapiAuthenticationRequest): Promise<StrapiAuthenticationResponse> => {
-    const { jwt }: StrapiAuthenticationResponse = await client('/auth/local', { method: 'POST', body: data })
-    const user = await getCurrentUser(jwt)
+    const { jwt, user }: StrapiAuthenticationResponse = await client('/auth/local', { method: 'POST', body: data })
     return {
       user,
       jwt,
@@ -102,7 +95,6 @@ export function StrapiUserSdk() {
    * @returns Promise<void>
    */
   const changePassword = async (data: StrapiChangePasswordRequest, token: string = '', headers: Record<string, string> = {}): Promise<StrapiAuthenticationResponse> => {
-    authTokenPrecondition(token, headers)
     return await client('/auth/change-password', { method: 'POST', body: data, params: { token, headers } })
   }
 

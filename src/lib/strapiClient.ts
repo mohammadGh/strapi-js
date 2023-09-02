@@ -68,7 +68,7 @@ export function getStrapiClient() {
     catch (err: any) {
       const strapiError: StrapiErrorResponse = err.data?.error || defaultErrors(err)
       // eslint-disable-next-line no-console
-      console.log(strapiError)
+      console.log(' [strapi-client] Error', strapiError)
       throw strapiError
     }
   }
