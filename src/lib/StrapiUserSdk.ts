@@ -4,22 +4,25 @@ import type {
   StrapiAuthenticationResponse,
   StrapiChangePasswordRequest,
   StrapiEmailConfirmationRequest,
+  StrapiFetcher,
   StrapiForgotPasswordRequest,
   StrapiRegistrationRequest,
   StrapiResetPasswordRequest,
   StrapiUser,
 } from './types'
-import { getStrapiClient } from './strapiClient'
 
 const url = 'http://cms.gazmeh.ir:1667/'
 
-export function StrapiUserSdk() {
-  const client = getStrapiClient()
-
-  // const config = process.server ? useRuntimeConfig() : useRuntimeConfig().public
-
+export function StrapiUserSdk(strapiFetch: StrapiFetcher) {
+  /**
+   * Get logged-in user information
+   *
+   * @param token JWT token
+   * @param headers Custom headers that will be attached to the strapi request
+   * @returns A promise of {StrapiUser} object
+   */
   const getCurrentUser = async (token: string = '', headers: Record<string, string> = {}): Promise<StrapiUser> => {
-    return await client('/users/me', { params: { token, headers } })
+    return await strapiFetch('/users/me', { params: { token, headers } })
   }
 
   /**
@@ -31,7 +34,7 @@ export function StrapiUserSdk() {
    * @returns Promise<StrapiAuthenticationResponse>
    */
   const login = async (data: StrapiAuthenticationRequest): Promise<StrapiAuthenticationResponse> => {
-    const { jwt, user }: StrapiAuthenticationResponse = await client('/auth/local', { method: 'POST', body: data })
+    const { jwt, user }: StrapiAuthenticationResponse = await strapiFetch('/auth/local', { method: 'POST', body: data })
     return {
       user,
       jwt,
@@ -48,7 +51,7 @@ export function StrapiUserSdk() {
    * @returns Promise<StrapiAuthenticationResponse>
    */
   const register = async (data: StrapiRegistrationRequest): Promise<StrapiAuthenticationResponse> => {
-    const { jwt }: StrapiAuthenticationResponse = await client('/auth/local/register', { method: 'POST', body: data })
+    const { jwt }: StrapiAuthenticationResponse = await strapiFetch('/auth/local/register', { method: 'POST', body: data })
     const user = await getCurrentUser(jwt)
     return {
       user,
@@ -64,7 +67,7 @@ export function StrapiUserSdk() {
    * @returns Promise<void>
    */
   const forgotPassword = async (data: StrapiForgotPasswordRequest): Promise<void> => {
-    await client('/auth/forgot-password', { method: 'POST', body: data })
+    await strapiFetch('/auth/forgot-password', { method: 'POST', body: data })
   }
 
   /**
@@ -77,7 +80,7 @@ export function StrapiUserSdk() {
    * @returns Promise<StrapiAuthenticationResponse>
    */
   const resetPassword = async (data: StrapiResetPasswordRequest): Promise<StrapiAuthenticationResponse> => {
-    const { jwt }: StrapiAuthenticationResponse = await client('/auth/reset-password', { method: 'POST', body: data })
+    const { jwt }: StrapiAuthenticationResponse = await strapiFetch('/auth/reset-password', { method: 'POST', body: data })
     const user = await getCurrentUser(jwt)
     return {
       user,
@@ -95,7 +98,7 @@ export function StrapiUserSdk() {
    * @returns Promise<void>
    */
   const changePassword = async (data: StrapiChangePasswordRequest, token: string = '', headers: Record<string, string> = {}): Promise<StrapiAuthenticationResponse> => {
-    return await client('/auth/change-password', { method: 'POST', body: data, params: { token, headers } })
+    return await strapiFetch('/auth/change-password', { method: 'POST', body: data, params: { token, headers } })
   }
 
   /**
@@ -106,7 +109,7 @@ export function StrapiUserSdk() {
    * @returns Promise<void>
    */
   const sendEmailConfirmation = async (data: StrapiEmailConfirmationRequest): Promise<void> => {
-    await client('/auth/send-email-confirmation', { method: 'POST', body: data })
+    await strapiFetch('/auth/send-email-confirmation', { method: 'POST', body: data })
   }
 
   /**
@@ -127,7 +130,7 @@ export function StrapiUserSdk() {
    * @returns Promise<StrapiAuthenticationResponse>
    */
   const authenticateProvider = async (provider: StrapiAuthProvider, access_token: string): Promise<StrapiAuthenticationResponse> => {
-    const { jwt }: StrapiAuthenticationResponse = await client(`/auth/${provider}/callback`, { method: 'GET', params: { access_token } })
+    const { jwt }: StrapiAuthenticationResponse = await strapiFetch(`/auth/${provider}/callback`, { method: 'GET', params: { access_token } })
     const user = await getCurrentUser(jwt)
     return {
       user,

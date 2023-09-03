@@ -1,12 +1,6 @@
-import type { StrapiRequestParams } from './types'
-import { getStrapiClient } from './strapiClient'
+import type { StrapiFetcher, StrapiRequestParams } from './types'
 
-export function StrapiContentSdk() {
-  const client = getStrapiClient()
-  const version = 'v4'
-  if (version !== 'v4')
-    console.warn('useStrapiSdk is only available for v4')
-
+export function StrapiContentSdk(strapiFetch: StrapiFetcher) {
   /**
    * Get a list of {content-type} entries
    *
@@ -15,7 +9,7 @@ export function StrapiContentSdk() {
    * @returns Promise<T>
    */
   const find = <T>(contentType: string, params?: StrapiRequestParams): Promise<T> => {
-    return client(`/${contentType}`, { method: 'GET', params })
+    return strapiFetch(`/${contentType}`, { method: 'GET', params })
   }
 
   /**
@@ -34,7 +28,7 @@ export function StrapiContentSdk() {
 
     const path = [contentType, id].filter(Boolean).join('/')
 
-    return client(path, { method: 'GET', params })
+    return strapiFetch(path, { method: 'GET', params })
   }
 
   /**
@@ -45,7 +39,7 @@ export function StrapiContentSdk() {
    * @returns Promise<T>
    */
   const create = <T>(contentType: string, data: Partial<T>): Promise<T> => {
-    return client(`/${contentType}`, { method: 'POST', body: { data } })
+    return strapiFetch(`/${contentType}`, { method: 'POST', body: { data } })
   }
 
   /**
@@ -64,7 +58,7 @@ export function StrapiContentSdk() {
 
     const path = [contentType, id].filter(Boolean).join('/')
 
-    return client(path, { method: 'PUT', body: { data } })
+    return strapiFetch(path, { method: 'PUT', body: { data } })
   }
 
   /**
@@ -77,7 +71,7 @@ export function StrapiContentSdk() {
   const _delete = <T>(contentType: string, id?: string | number): Promise<T> => {
     const path = [contentType, id].filter(Boolean).join('/')
 
-    return client(path, { method: 'DELETE' })
+    return strapiFetch(path, { method: 'DELETE' })
   }
 
   return {
