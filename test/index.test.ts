@@ -1,14 +1,16 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
-import { StrapiContentSdk, StrapiUserSdk } from '../src'
+import { StrapiContentSdk, StrapiSdk, StrapiUserSdk } from '../src'
 import type { StrapiErrorResponse } from '../src/lib/types'
-import { strapiMockServer as server } from './mocks/strapiMockServer'
+import { strapiDefaultConfigs } from '../src/lib/getStrapiFetcher'
+import { getStrapiMockServer } from './mocks/strapiMockServer'
 
-const strapiUserSdk = StrapiUserSdk()
+const server = getStrapiMockServer(strapiDefaultConfigs)
+const strapiSdk = StrapiSdk(strapiDefaultConfigs)
 
 describe('Sdk package exporting', () => {
   it('should export user-sdk as a function with correct methods', () => {
     expect(typeof StrapiUserSdk).toEqual('function')
-    expect(Object.getOwnPropertyNames (strapiUserSdk).sort()).toEqual([
+    expect(Object.getOwnPropertyNames (strapiSdk.users).sort()).toEqual([
       'authenticateProvider',
       'changePassword',
       'forgotPassword',
@@ -30,7 +32,7 @@ describe('user-sdk login method', () => {
   it('should throwing bad request without setting identifier or password parameter', async () => {
     try {
       const param: any = { password: 'a-password' }
-      await strapiUserSdk.login(param)
+      await strapiSdk.users.login(param)
     }
     catch (err: any) {
       const strapiError: StrapiErrorResponse = err
@@ -41,7 +43,7 @@ describe('user-sdk login method', () => {
 
   it('should throwing invalid identifier or password with wrong password', async () => {
     try {
-      await strapiUserSdk.login({
+      await strapiSdk.users.login({
         identifier: 'valid-user',
         password: 'invalid-password',
       })
@@ -54,7 +56,7 @@ describe('user-sdk login method', () => {
   })
 
   it('should successfully logged in with correct credentials', async () => {
-    const { user, jwt } = await strapiUserSdk.login({
+    const { user, jwt } = await strapiSdk.users.login({
       identifier: 'valid-user',
       password: 'valid-password',
     })

@@ -1,16 +1,21 @@
 import { type FetchError, type FetchOptions } from 'ofetch'
 import { ofetch } from 'ofetch'
+import defu from 'defu'
+import { joinURL, normalizeURL } from 'ufo'
 import { stringify } from 'qs'
-import type { StrapiErrorResponse } from './types'
+import type { StrapiConfigs, StrapiErrorResponse, StrapiFetcher } from './types'
 
-const defaults = {
-  url: 'http://cms.gazmeh.ir:1667',
-  prefix: 'api',
+export const strapiDefaultConfigs: StrapiConfigs = {
+  url: 'http://localhost:1337/',
+  prefix: '/api',
   version: 'v4',
-  cookie: {},
-  auth: {},
-  cookieName: 'strapi_jwt',
-  devtools: false,
+}
+
+export function getStrapiBaseURL(configs?: StrapiConfigs, defaultConfigs?: StrapiConfigs): string {
+  const defaults = defaultConfigs || strapiDefaultConfigs
+  const mergedConfigs: any = defu(configs || {}, defaults)
+  const baseURL = joinURL(normalizeURL(mergedConfigs.url), mergedConfigs.prefix)
+  return baseURL
 }
 
 function defaultErrors(err: FetchError) {
@@ -22,8 +27,8 @@ function defaultErrors(err: FetchError) {
   }
 }
 
-export function getStrapiClient() {
-  const baseURL = `${defaults.url}/${defaults.prefix}/`
+export function getStrapiFetcher(configs?: StrapiConfigs): StrapiFetcher {
+  const baseURL = getStrapiBaseURL(configs)
 
   return async <T> (url: string, fetchOptions: FetchOptions<'json'> = {}): Promise<T> => {
     const headers: HeadersInit = {}
@@ -67,8 +72,7 @@ export function getStrapiClient() {
     }
     catch (err: any) {
       const strapiError: StrapiErrorResponse = err.data?.error || defaultErrors(err)
-      // eslint-disable-next-line no-console
-      console.log(' [strapi-client] Error', strapiError)
+      // console.log(' [strapi-client] Error', strapiError)
       throw strapiError
     }
   }
