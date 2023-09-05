@@ -10,7 +10,8 @@ A nodejs/browser typescript/javascript sdk for Strapi headless CMS. You can use 
 
 # Features
 
-- 📦 TypeScript
+- 📦 TypeScript & Fully Typed APIs
+- ✔️ Works with Node.js / Browser / Edge
 - ⚡️ Fast Build System [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [esbuild](https://github.com/evanw/esbuild)
 - ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest)
 
