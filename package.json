@@ -42,7 +42,8 @@
     "start": "esno src/index.ts",
     "test": "vitest",
     "coverage": "vitest --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "dependencies": {
     "defu": "^6.1.2",
@@ -60,6 +61,7 @@
     "bumpp": "^9.1.1",
     "eslint": "^8.45.0",
     "esno": "^0.17.0",
+    "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "msw": "^1.2.5",
     "pnpm": "^8.6.10",
