@@ -9,4 +9,4 @@ export interface StrapiConfigs {
     version?: string;
 }
 
-export type StrapiFetcher = <T> (url: string, fetchOptions: FetchOptions<'json'> = {}) => Promise<T>
+export type StrapiFetcher = <T> (url: string, fetchOptions: FetchOptions<'json'>) => Promise<T>
