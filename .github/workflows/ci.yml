@@ -2,6 +2,14 @@ name: CI
 
 on:
   workflow_dispatch:
+    inputs:
+      skipTest:
+        description: Skip running test?
+        required: false
+        default: 'true'
+        options:
+          - true
+          - false
 
   push:
     branches:
