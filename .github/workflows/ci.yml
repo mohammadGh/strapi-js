@@ -6,7 +6,7 @@ on:
       skipTest:
         description: Skip running test?
         required: false
-        default: 'true'
+        default: true
         options:
           - true
           - false

@@ -15,13 +15,12 @@ export function getStrapiMockServer(configs: StrapiConfigs): SetupServer {
       // bad request scenario
       if (!identifier)
         return HttpResponse.json({ ...loginBadRequestResponse }, { status: 400 })
-
       // bad credential scenario
       if (password && password as string === 'invalid-password')
         return HttpResponse.json({ ...loginInvalidIdentifierOrPasswordResponse }, { status: 400 })
 
       // otherwise: successful login scenario
-      return HttpResponse.json(loginOkResponse)
+      return HttpResponse.json({ ...loginOkResponse }) as any
     }),
   )
 }
