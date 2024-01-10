@@ -1,5 +1,5 @@
 import { type FetchError, type FetchOptions } from 'ofetch'
-import { ofetch } from 'ofetch'
+import { createFetch } from 'ofetch'
 import defu from 'defu'
 import { joinURL, normalizeURL } from 'ufo'
 import { stringify } from 'qs'
@@ -60,7 +60,7 @@ export function getStrapiFetcher(configs?: StrapiConfigs): StrapiFetcher {
     }
 
     try {
-      return await ofetch<T>(url, {
+      return await <T>createFetch()(url, {
         retry: 0,
         baseURL,
         headers: {
