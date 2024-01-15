@@ -13,6 +13,7 @@ describe('Sdk package exporting', () => {
     expect(Object.getOwnPropertyNames (strapiSdk.users).sort()).toEqual([
       'authenticateProvider',
       'changePassword',
+      'confirmAccount',
       'forgotPassword',
       'getCurrentUser',
       'getProviderAuthenticationUrl',
