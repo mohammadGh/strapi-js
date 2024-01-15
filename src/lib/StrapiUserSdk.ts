@@ -22,7 +22,7 @@ export function StrapiUserSdk(strapiFetch: StrapiFetcher) {
    * @returns A promise of {StrapiUser} object
    */
   const getCurrentUser = async (token: string = '', headers: Record<string, string> = {}): Promise<StrapiUser> => {
-    return await strapiFetch('/users/me', { params: { token, headers } })
+    return await strapiFetch('/users/me', { method: 'GET', headers, params: { token } })
   }
 
   /**
@@ -51,12 +51,18 @@ export function StrapiUserSdk(strapiFetch: StrapiFetcher) {
    * @returns Promise<StrapiAuthenticationResponse>
    */
   const register = async (data: StrapiRegistrationRequest): Promise<StrapiAuthenticationResponse> => {
-    const { jwt }: StrapiAuthenticationResponse = await strapiFetch('/auth/local/register', { method: 'POST', body: data })
-    const user = await getCurrentUser(jwt)
-    return {
-      user,
-      jwt,
-    }
+    return await strapiFetch('/auth/local/register', { method: 'POST', body: data })
+  }
+
+  /**
+   * Confirm account with confirmation code received by account's email
+   *
+   * @param confirmation a confirmation code received by account's email
+   * @param headers any extra string->string http-headers
+   * @returns ok if the account is confirmed successfully
+   */
+  const confirmAccount = async (confirmation: string = '', headers: Record<string, string> = {}): Promise<void> => {
+    return await strapiFetch('/auth/email-confirmation', { method: 'GET', headers, params: { confirmation } })
   }
 
   /**
@@ -67,7 +73,31 @@ export function StrapiUserSdk(strapiFetch: StrapiFetcher) {
    * @returns Promise<void>
    */
   const forgotPassword = async (data: StrapiForgotPasswordRequest): Promise<void> => {
-    await strapiFetch('/auth/forgot-password', { method: 'POST', body: data })
+    return await strapiFetch('/auth/forgot-password', { method: 'POST', body: data })
+  }
+
+  /**
+   * Change the user password
+   *
+   * @param  {StrapiChangePasswordRequest} data - Change password form: `currentPassword`, `password`, `passwordConfirmation`
+   * @param  {string} data.currentPassword - Current password of the user
+   * @param  {string} data.password - New password of the user
+   * @param  {string} data.passwordConfirmation - Confirmation of the new password of the user
+   * @returns Promise<void>
+   */
+  const changePassword = async (data: StrapiChangePasswordRequest, token: string = ''): Promise<StrapiAuthenticationResponse> => {
+    return await strapiFetch('/auth/change-password', { method: 'POST', body: data, params: { token } })
+  }
+
+  /**
+   * Send programmatically an email to a user in order to confirm his account
+   *
+   * @param  {StrapiEmailConfirmationRequest} data - Email confirmation form: `email`
+   * @param  {string} data.email - Email of the user who want to be confirmed
+   * @returns Promise<void>
+   */
+  const sendEmailConfirmation = async (data: StrapiEmailConfirmationRequest): Promise<void> => {
+    await strapiFetch('/auth/send-email-confirmation', { method: 'POST', body: data })
   }
 
   /**
@@ -80,36 +110,7 @@ export function StrapiUserSdk(strapiFetch: StrapiFetcher) {
    * @returns Promise<StrapiAuthenticationResponse>
    */
   const resetPassword = async (data: StrapiResetPasswordRequest): Promise<StrapiAuthenticationResponse> => {
-    const { jwt }: StrapiAuthenticationResponse = await strapiFetch('/auth/reset-password', { method: 'POST', body: data })
-    const user = await getCurrentUser(jwt)
-    return {
-      user,
-      jwt,
-    }
-  }
-
-  /**
-   * Change the user password
-   *
-   * @param  {StrapiChangePasswordRequest} data - Change password form: `currentPassword`, `password`, `passwordConfirmation`
-   * @param  {string} data.currentPassword - Current password of the user
-   * @param  {string} data.password - New password of the user
-   * @param  {string} data.passwordConfirmation - Confirmation of the new password of the user
-   * @returns Promise<void>
-   */
-  const changePassword = async (data: StrapiChangePasswordRequest, token: string = '', headers: Record<string, string> = {}): Promise<StrapiAuthenticationResponse> => {
-    return await strapiFetch('/auth/change-password', { method: 'POST', body: data, params: { token, headers } })
-  }
-
-  /**
-   * Send programmatically an email to a user in order to confirm his account
-   *
-   * @param  {StrapiEmailConfirmationRequest} data - Email confirmation form: `email`
-   * @param  {string} data.email - Email of the user who want to be confirmed
-   * @returns Promise<void>
-   */
-  const sendEmailConfirmation = async (data: StrapiEmailConfirmationRequest): Promise<void> => {
-    await strapiFetch('/auth/send-email-confirmation', { method: 'POST', body: data })
+    return await strapiFetch('/auth/reset-password', { method: 'POST', body: data })
   }
 
   /**
@@ -142,6 +143,7 @@ export function StrapiUserSdk(strapiFetch: StrapiFetcher) {
     login,
     getCurrentUser,
     register,
+    confirmAccount,
     forgotPassword,
     resetPassword,
     changePassword,
