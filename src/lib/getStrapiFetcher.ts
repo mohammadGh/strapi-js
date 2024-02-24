@@ -50,6 +50,7 @@ export function getStrapiFetcher(configs?: StrapiConfigs): StrapiFetcher {
     }
 
     console.log('[strapi-js] request url: ', url)
+    console.log('[strapi-js] request Authorization-Header: ', newHeaders.Authorization)
     // console.log('from strapi-js: \n', 'newHeaders: ', newHeaders, 'original headers: ', fetchOptions.headers)
     try {
       return await <T>createFetch()(url, {
