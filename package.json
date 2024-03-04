@@ -1,0 +1,95 @@
+{
+  "name": "strapi-js",
+  "type": "module",
+  "version": "1.0.1",
+  "packageManager": "pnpm@8.15.3",
+  "description": "A nodejs/browser/edge javascript SDK for Strapi headless CMS; type-safe with typescript.",
+  "author": "mgh <m.ghoreshi@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/mohammadGh/strapi-js.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammadGh/strapi-js.git"
+  },
+  "bugs": "https://github.com/mohammadGh/strapi-js/issues",
+  "keywords": [
+    "strapi-api",
+    "strapi-sdk",
+    "javascript-strapi",
+    "typescript-strapi"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "nr build",
+    "test": "vitest",
+    "coverage": "vitest --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky",
+    "cz": "cz",
+    "commit": "cz",
+    "release": "release-it"
+  },
+  "dependencies": {
+    "defu": "^6.1.4",
+    "ofetch": "^1.3.3",
+    "qs": "^6.11.2",
+    "std-env": "^3.7.0",
+    "ufo": "^1.4.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.7.0",
+    "@antfu/ni": "^0.21.12",
+    "@antfu/utils": "^0.7.7",
+    "@commitlint/cli": "^19.0.3",
+    "@commitlint/config-conventional": "^19.0.3",
+    "@types/node": "^20.10.0",
+    "@types/qs": "^6.9.12",
+    "@vitest/coverage-v8": "^1.3.1",
+    "changelogen": "^0.5.5",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "msw": "^2.2.2",
+    "pnpm": "^8.15.4",
+    "release-it": "^17.1.1",
+    "release-it-beautiful-changelog": "^0.1.1",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0",
+    "vite": "^5.1.4",
+    "vitest": "^1.3.1"
+  },
+  "lint-staged": {
+    "*.{js,cjs,ts,vue,yml}": "eslint --fix"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

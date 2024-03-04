@@ -1,0 +1,24 @@
+{
+  "git": {
+    "commitMessage": "chore: release v${version}",
+    "tagName": "v${version}",
+    "tagAnnotation": "Release v${version}",
+    "requireBranch": "main"
+  },
+  "github": {
+    "release": true,
+    "releaseName": "v${version}"
+  },
+  "npm": {
+    "release": true
+  },
+  "hooks": {
+    "before:init": ["git pull", "pnpm lint", "pnpm build", "pnpm coverage"]
+  },
+  "plugins": {
+    "release-it-beautiful-changelog": {
+      "disable": false,
+      "changelogFile": "./CHANGELOG.md"
+    }
+  }
+}
