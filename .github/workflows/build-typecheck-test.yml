@@ -38,7 +38,7 @@ jobs:
       - name: Test
         run: nr test
 
-      - name: Test
+      - name: Test with Coverage
         run: nr coverage
 
       - name: Upload Coverage Metric to Codecov
