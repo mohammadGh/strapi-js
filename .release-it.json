@@ -2,8 +2,7 @@
   "git": {
     "commitMessage": "chore: release v${version}",
     "tagName": "v${version}",
-    "tagAnnotation": "Release v${version}",
-    "requireBranch": "main"
+    "tagAnnotation": "Release v${version}"
   },
   "github": {
     "release": true,
@@ -13,7 +12,7 @@
     "release": true
   },
   "hooks": {
-    "before:init": ["git pull", "pnpm lint", "pnpm build", "pnpm coverage"]
+    "before:init": ["git pull", "pnpm lint", "pnpm build", "pnpm test"]
   },
   "plugins": {
     "release-it-beautiful-changelog": {
