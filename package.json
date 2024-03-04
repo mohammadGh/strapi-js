@@ -46,7 +46,7 @@
     "lint": "eslint .",
     "prepublishOnly": "nr build",
     "test": "vitest",
-    "coverage": "vitest --coverage",
+    "coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "cz": "cz",

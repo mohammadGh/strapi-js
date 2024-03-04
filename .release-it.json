@@ -12,7 +12,7 @@
     "release": true
   },
   "hooks": {
-    "before:init": ["git pull", "pnpm lint", "pnpm build", "pnpm test"]
+    "before:init": ["git pull", "pnpm lint", "pnpm build", "pnpm test run"]
   },
   "plugins": {
     "release-it-beautiful-changelog": {
