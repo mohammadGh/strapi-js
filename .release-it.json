@@ -2,8 +2,7 @@
   "git": {
     "commitMessage": "chore: release v${version}",
     "tagName": "v${version}",
-    "tagAnnotation": "Release v${version}",
-    "requireBranch": "main"
+    "tagAnnotation": "Release v${version}"
   },
   "github": {
     "release": true,
