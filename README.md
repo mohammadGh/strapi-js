@@ -1,6 +1,6 @@
 # strapi-js
 
-![Build](https://img.shields.io/github/actions/workflow/status/mohammadGh/strapi-js/ci.yml)
+![Build](https://img.shields.io/github/actions/workflow/status/mohammadGh/strapi-js/build-typecheck-test.yml)
 ![package.json version (main branch)](https://img.shields.io/github/package-json/v/mohammadGh/strapi-js/main)
 ![npm](https://img.shields.io/npm/v/strapi-js)
 ![Codecov](https://img.shields.io/codecov/c/github/mohammadGh/strapi-js)
