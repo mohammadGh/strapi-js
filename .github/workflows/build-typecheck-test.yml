@@ -38,6 +38,9 @@ jobs:
       - name: Test
         run: nr test
 
+      - name: Test
+        run: nr coverage
+
       - name: Upload Coverage Metric to Codecov
         uses: codecov/codecov-action@v3
         env:
