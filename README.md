@@ -58,11 +58,12 @@ strapi.auth.changePassword({
 ```
 # Docs
 ## Users Sdk
-`strapiSdk.auth` contains `/auth` APIs of Strapi:
-- `login`: login providing identifier (username or email) and password
-- `register`: register new user providing username, email and password
-- `sendEmailConfirmation`: email confirmation token to registered user
-- `changePassword`: change logged-in user's password providing jwt-token, current-password and new-password
-- `forgotPassword`: request to reset the password using a registered email address
-- `resetPassword`: set new password using token received with user's email
-- `currentUser`: get user information using the jwt-token
+This sdk i.e. `StrapiSdk.auth` contains APIs of Strapi related to path **`/auth`**:
+- `login`: Login into strapi providing identifier (username/email) and password
+- `register`: Register new user providing username, email and password
+- `emailConfirmation`: Confirm user's account with confirmation code
+- `sendEmailConfirmation`: Resend email confirmation token to registered user
+- `changePassword`: Change user's password providing jwt-token, current-password and new-password
+- `forgotPassword`: Request to reset the password using a registered email address
+- `resetPassword`: Set new password using a code received with email
+- `currentUser`: Get user information using the jwt-token
