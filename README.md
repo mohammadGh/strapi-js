@@ -30,22 +30,39 @@ yarn add strapi-js
 
 ```js
 // ESM | Typescript
-import { StrapiSdk } from 'strapi-js' // CommonJS: const { StrapiSdk } = require('strapi-js')
+// CommonJS: const { StrapiSdk } = require('strapi-js')
+import { StrapiSdk } from 'strapi-js'
 
-// Usage: obtain sdk-instance and use it to login and perform other functions
-const config = { url: 'http://localhost:1337', prefix: 'api' } // the default configuration
-const strapiSdk = StrapiSdk (config) // or if you doesn't provide config the sdk will be use the default configuration
+// Usage: 1) provide config (the default configuration)
+const config = {
+  url: 'http://localhost:1337/',
+  prefix: '/api',
+  version: 'v4',
+  logType: 'info',
+  retry: 0, // Number of retries for requests that have encountered an error
+}
 
-const { user, jwt } = strapiSdk.users.login ({ identifier: 'username', password: 'pass' })
+// Usage: 2) obtain sdk instance
+const strapi = StrapiSdk (config)
+
+// Usage: 3) use it
+const { user, jwt } = strapi.auth.login ({
+  identifier: 'mgh@gmail.com',
+  password: 'pass123'
+})
+strapi.auth.changePassword({
+  currentPassword: 'pass123',
+  password: 'pass123456',
+  passwordConfirmation: 'pass123456'
+})
 ```
 # Docs
 ## Users Sdk
-`strapiSdk.users` contains these methods:
+`strapiSdk.auth` contains `/auth` APIs of Strapi:
 - `login`: login providing identifier (username or email) and password
-- `getCurrentUser`: get user profile using the jwt-token received with `login` method
 - `register`: register new user providing username, email and password
-- `sendEmailConfirmation`: resend confirmation token using a registered email address
-- `changePassword`: change logged in user's password providing jwt-token, current-password and new-password
+- `sendEmailConfirmation`: email confirmation token to registered user
+- `changePassword`: change logged-in user's password providing jwt-token, current-password and new-password
 - `forgotPassword`: request to reset the password using a registered email address
-- `resetPassword`: set new password using token received with previous method
-- `getProviderAuthenticationUrl`: not-implemented-yet
+- `resetPassword`: set new password using token received with user's email
+- `currentUser`: get user information using the jwt-token
