@@ -16,7 +16,7 @@ export interface StrapiConfig {
   url?: string
   prefix?: string
   version?: 'v4'
-  logType?: 'fatal' | 'info' | 'debug'
+  logType?: 'auto' | 'fatal' | 'info' | 'debug'
   retry?: number
 }
 

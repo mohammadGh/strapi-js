@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
 import type { FetchError, FetchOptions } from 'ofetch'
-import { createFetch, ofetch } from 'ofetch'
+import { Headers, createFetch, ofetch } from 'ofetch'
 import { isTest } from 'std-env'
 import { stringify } from 'qs'
+import { consola } from 'consola/basic'
 import type { StrapiConfig, StrapiErrorResponse, StrapiFetchAdapter } from './types'
 import { getBaseUrl } from './config'
 
@@ -19,11 +19,16 @@ export function UseStrapiOfetchAdapter(config: Required<StrapiConfig>): StrapiFe
   const baseURL = getBaseUrl(config)
 
   return async <T> (url: string, fetchOptions: FetchOptions<'json'> & { token?: string } = {}): Promise<T> => {
-    const authHeader: HeadersInit = {}
+    const headers: Headers = new Headers(fetchOptions.headers)
 
-    // if explicity a token provided, we use it for Authorization header
-    if (fetchOptions.token)
-      authHeader.Authorization = `Bearer ${fetchOptions.token}`
+    // if explicity a token provided, we use it for header-authorization
+    if (fetchOptions.token) {
+      headers.set('authorization', `Bearer ${fetchOptions.token}`)
+      consola.info('Explicit jwt token provided and set into headers: ', headers.get('authorization'))
+    }
+    else if (!headers.get('authorization')) {
+      consola.warn('No explicit jwt token nor authorization header found for request')
+    }
 
     // request params are encoded as query-params in the request url
     if (fetchOptions.params) {
@@ -34,23 +39,19 @@ export function UseStrapiOfetchAdapter(config: Required<StrapiConfig>): StrapiFe
       delete fetchOptions.params
     }
 
-    console.log('[strapi-js] request url: ', url)
-    console.log('[strapi-js] request Authorization-Header: ', authHeader.Authorization)
-
     try {
       // test (msw) issue with ofetch instance
       // https://github.com/unjs/ofetch/issues/295
       const fetchInstance = isTest ? createFetch() : ofetch
-
-      return await <T> fetchInstance(url, {
+      const requestOptions = {
         retry: config.retry,
         baseURL,
-        headers: {
-          ...fetchOptions.headers,
-          ...authHeader,
-        },
         ...fetchOptions,
-      })
+        headers,
+      }
+      consola.debug('Final headers for ofetch: ', requestOptions.headers)
+
+      return await <T> fetchInstance(url, requestOptions)
     }
     catch (err: any) {
       const strapiError: StrapiErrorResponse = err.data?.error || defaultErrors(err)
