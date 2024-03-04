@@ -6,7 +6,7 @@ export const strapiDefaultConfig: Required<StrapiConfig> = {
   url: 'http://localhost:1337/',
   prefix: '/api',
   version: 'v4',
-  logType: 'info',
+  logType: 'auto',
   retry: 0,
 }
 

@@ -38,7 +38,7 @@ const config = {
   url: 'http://localhost:1337/',
   prefix: '/api',
   version: 'v4',
-  logType: 'info',
+  logType: 'auto',
   retry: 0, // Number of retries for requests that have encountered an error
 }
 
