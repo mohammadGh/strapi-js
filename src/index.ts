@@ -1,5 +1,4 @@
-export * from './lib/StrapiAuthSdk'
-export * from './lib/StrapiSdk'
+export * from './lib/strapiSdk'
 export type {
   StrapiLocale,
   StrapiUser,

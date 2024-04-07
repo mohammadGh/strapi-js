@@ -8,7 +8,7 @@ import type {
   StrapiUser,
 } from './types'
 
-export function StrapiAuthSdk(strapiFetch: StrapiFetchAdapter) {
+export function newStrapiAuthSdk(strapiFetch: StrapiFetchAdapter) {
   /**
    * get current user
    * currently this api in strapi is not available in /auth/; this method makes request to /users/me

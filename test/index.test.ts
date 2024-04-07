@@ -1,15 +1,14 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
-import { StrapiAuthSdk, StrapiSdk } from '../src'
+import { newStrapiSdk } from '../src'
 import type { StrapiErrorResponse } from '../src/lib/types'
 import { strapiDefaultConfig } from '../src/lib/config'
-import { getStrapiMockServer } from './mocks/strapiMockServer'
+import { getStrapiAuthMockServer } from './mocks/strapiMockServer'
 
-const server = getStrapiMockServer(strapiDefaultConfig)
-const strapiSdk = StrapiSdk(strapiDefaultConfig)
+const server = getStrapiAuthMockServer(strapiDefaultConfig)
+const strapiSdk = newStrapiSdk(strapiDefaultConfig)
 
-describe('sdk package exporting', () => {
+describe('auth-sdk package exporting', () => {
   it('should export auth-sdk as a function with correct objects and methods', () => {
-    expect(typeof StrapiAuthSdk).toEqual('function')
     expect(typeof strapiSdk.auth).toEqual('object')
     expect(Object.getOwnPropertyNames (strapiSdk.auth).sort()).toEqual([
       'changePassword',
@@ -22,9 +21,18 @@ describe('sdk package exporting', () => {
       'sendEmailConfirmation',
     ])
   })
+})
 
-  it('should export content-sdk as a function', () => {
-    expect(typeof StrapiAuthSdk).toEqual('function')
+describe('users-sdk package exporting', () => {
+  it('should export users-sdk as a function with correct objects and methods', () => {
+    expect(typeof strapiSdk.users).toEqual('object')
+    expect(Object.getOwnPropertyNames (strapiSdk.users).sort()).toEqual([
+      'deleteUserById',
+      'getUserById',
+      'getUsers',
+      'me',
+      'updateUserById',
+    ])
   })
 })
 

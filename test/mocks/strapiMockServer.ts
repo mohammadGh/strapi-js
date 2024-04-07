@@ -2,11 +2,11 @@ import { HttpResponse, http } from 'msw'
 import { type SetupServer, setupServer } from 'msw/node'
 import type { StrapiConfig } from '../../src/lib/types'
 import { getBaseUrl } from '../../src/lib/config'
-import loginBadRequestResponse from './loginBadRequestResponse.json'
-import loginInvalidIdentifierOrPasswordResponse from './loginInvalidIdentifierOrPasswordResponse.json'
-import loginOkResponse from './loginOkResponse.json'
+import loginBadRequestResponse from './auth/loginBadRequestResponse.json'
+import loginInvalidIdentifierOrPasswordResponse from './auth/loginInvalidIdentifierOrPasswordResponse.json'
+import loginOkResponse from './auth/loginOkResponse.json'
 
-export function getStrapiMockServer(config: Required<StrapiConfig>): SetupServer {
+export function getStrapiAuthMockServer(config: Required<StrapiConfig>): SetupServer {
   const baseURL = getBaseUrl(config)
   return setupServer(
     http.post(`${baseURL}/auth/local`, async ({ request }) => {
