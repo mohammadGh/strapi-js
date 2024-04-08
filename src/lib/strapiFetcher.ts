@@ -23,10 +23,10 @@ export function UseStrapiOfetchAdapter(config: Required<StrapiConfig>): StrapiFe
 
     // if explicity a token provided, we use it for header-authorization
     if (fetchOptions.token) {
-      headers.set('authorization', `Bearer ${fetchOptions.token}`)
-      consola.info('Explicit jwt token provided and set into headers: ', headers.get('authorization'))
+      headers.set('Authorization', `Bearer ${fetchOptions.token}`)
+      consola.info('Explicit jwt token provided and set into headers: ', headers.get('Authorization'))
     }
-    else if (!headers.get('authorization')) {
+    else if (!headers.get('Authorization')) {
       consola.warn('No explicit jwt token nor authorization header found for request')
     }
 
