@@ -19,7 +19,7 @@ export function newStrapiUploadSdk(strapiFetch: StrapiFetchAdapter) {
 
   // todo: add type for data, i.e: {files: File, ref:string, refId:string, filed: string }
   const upload = async (data: any, option: StrapiFetchOptions = {}): Promise<void> => {
-    return await strapiFetch('/upload', { ...option, body: data, method: 'DELETE' })
+    return await strapiFetch('/upload', { ...option, body: data, method: 'POST' })
   }
 
   return {
