@@ -13,4 +13,5 @@ export type {
   StrapiErrorResponse,
   StrapiResponseData,
   StrapiResponseMany,
+  StrapiUploadParams,
 } from './lib/types'

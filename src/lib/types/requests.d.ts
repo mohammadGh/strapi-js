@@ -22,3 +22,10 @@ export interface StrapiRequestParams {
   publicationState?: 'live' | 'preview'
   locale?: StrapiLocale
 }
+
+export interface StrapiUploadParams {
+  ref: string
+  refId: string
+  field: string
+  files: File
+}

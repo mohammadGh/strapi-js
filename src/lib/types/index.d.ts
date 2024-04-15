@@ -1,16 +1,9 @@
 import type { FetchOptions } from 'ofetch'
 
-export type { StrapiLocale } from './locales'
-export type {
-  StrapiUser,
-  StrapiAuthResponse,
-  StrapiAuthRequest,
-  StrapiRegisterRequest,
-  StrapiResetPasswordRequest,
-  StrapiChangePasswordRequest,
-} from './users'
-export type { PaginationByPage, PaginationByOffset, StrapiRequestParams } from './requests'
-export type { StrapiErrorResponse, StrapiResponseData, StrapiResponseMany } from './responses'
+export type * from './locales'
+export type * from './users'
+export type * from './requests'
+export type * from './responses'
 
 export interface StrapiConfig {
   url?: string
