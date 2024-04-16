@@ -30,7 +30,7 @@ export function UseStrapiOfetchAdapter(config: Required<StrapiConfig>): StrapiFe
       consola.warn('No explicit jwt token nor authorization header found for request')
     }
 
-    // request params are encoded as query-params in the request url
+    // request params are encoded as query-params in the request url using qs library
     if (fetchOptions.params) {
       const params = stringify(fetchOptions.params, { encodeValuesOnly: true })
       if (params)
