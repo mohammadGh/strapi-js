@@ -12,13 +12,13 @@ describe('auth-sdk package exporting', () => {
     expect(typeof strapiSdk.auth).toEqual('object')
     expect(Object.getOwnPropertyNames (strapiSdk.auth).sort()).toEqual([
       'changePassword',
-      'currentUser',
       'emailConfirmation',
       'forgotPassword',
       'localRegister',
       'login',
       'resetPassword',
       'sendEmailConfirmation',
+      'utilGetCurrentUser',
     ])
   })
 })

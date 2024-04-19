@@ -1,11 +1,11 @@
 import type {
-  StrapiAuthRequest,
+  StrapiAuthParams,
   StrapiAuthResponse,
-  StrapiChangePasswordRequest,
+  StrapiChangePasswordParams,
   StrapiFetchAdapter,
   StrapiFetchOptions,
-  StrapiRegisterRequest,
-  StrapiResetPasswordRequest,
+  StrapiRegisterParams,
+  StrapiResetPasswordParams,
   StrapiUser,
 } from './types'
 
@@ -14,11 +14,11 @@ export function newStrapiAuthSdk(strapiFetch: StrapiFetchAdapter) {
    * get current user
    * currently this api in strapi is not available in /auth/; this method makes request to /users/me
    */
-  const currentUser = async (option: StrapiFetchOptions = {}): Promise<StrapiUser> => {
+  const utilGetCurrentUser = async (option: StrapiFetchOptions = {}): Promise<StrapiUser> => {
     return await strapiFetch('/users/me', { ...option, method: 'GET' })
   }
 
-  const login = async (authParams: StrapiAuthRequest, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
+  const login = async (authParams: StrapiAuthParams, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
     const { jwt, user }: StrapiAuthResponse = await strapiFetch('/auth/local', { ...option, method: 'POST', body: authParams })
     return {
       user,
@@ -26,7 +26,7 @@ export function newStrapiAuthSdk(strapiFetch: StrapiFetchAdapter) {
     }
   }
 
-  const localRegister = async (registerParams: StrapiRegisterRequest, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
+  const localRegister = async (registerParams: StrapiRegisterParams, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
     return await strapiFetch('/auth/local/register', { ...option, method: 'POST', body: registerParams })
   }
 
@@ -44,7 +44,7 @@ export function newStrapiAuthSdk(strapiFetch: StrapiFetchAdapter) {
   /**
    * Change the user password
    */
-  const changePassword = async (data: StrapiChangePasswordRequest, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
+  const changePassword = async (data: StrapiChangePasswordParams, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
     return await strapiFetch('/auth/change-password', { ...option, method: 'POST', body: data })
   }
 
@@ -58,18 +58,18 @@ export function newStrapiAuthSdk(strapiFetch: StrapiFetchAdapter) {
   /**
    * reset password using forgot-code received from forgot-password request through email
    */
-  const resetPassword = async (data: StrapiResetPasswordRequest, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
+  const resetPassword = async (data: StrapiResetPasswordParams, option: StrapiFetchOptions = {}): Promise<StrapiAuthResponse> => {
     return await strapiFetch('/auth/reset-password', { ...option, method: 'POST', body: data })
   }
 
   return {
-    login,
-    currentUser,
-    localRegister,
+    changePassword,
     emailConfirmation,
     forgotPassword,
+    localRegister,
+    login,
     resetPassword,
-    changePassword,
     sendEmailConfirmation,
+    utilGetCurrentUser,
   }
 }

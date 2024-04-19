@@ -10,7 +10,7 @@ export function newStrapiUsersSdk(strapiFetch: StrapiFetchAdapter) {
   }
 
   const getUsers = async (option: StrapiFetchOptions = {}): Promise<'JSON'> => {
-    return await strapiFetch(`/users}`, { ...option, method: 'GET' })
+    return await strapiFetch('/users}', { ...option, method: 'GET' })
   }
 
   const getUserById = async (id: string, option: StrapiFetchOptions = {}): Promise<StrapiUser> => {

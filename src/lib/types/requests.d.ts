@@ -1,12 +1,12 @@
 import type { StrapiLocale } from './locales'
 
-export interface PaginationByPage {
+export interface StrapiPagePaginationParams {
   page: number
   pageSize: number
   withCount?: boolean
 }
 
-export interface PaginationByOffset {
+export interface StrapiOffsetPaginationParams {
   start: number
   limit: number
   withCount?: boolean
@@ -17,7 +17,7 @@ export interface StrapiRequestParams {
   fields?: Array<string>
   populate?: string | Array<string> | object
   sort?: string | Array<string>
-  pagination?: PaginationByOffset | PaginationByPage
+  pagination?: StrapiOffsetPaginationParams | StrapiPagePaginationParams
   filters?: Record<string, unknown>
   publicationState?: 'live' | 'preview'
   locale?: StrapiLocale

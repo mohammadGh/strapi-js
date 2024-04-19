@@ -14,25 +14,25 @@ export interface StrapiAuthResponse {
   jwt: string
 }
 
-export interface StrapiAuthRequest {
+export interface StrapiAuthParams {
   identifier: string
   password: string
 }
 
-export interface StrapiRegisterRequest {
+export interface StrapiRegisterParams {
   username: string
   email: string
   password: string
   [field: string]: string | number | boolean | object | Array<string | number | boolean | object>
 }
 
-export interface StrapiResetPasswordRequest {
+export interface StrapiResetPasswordParams {
   code: string
   password: string
   passwordConfirmation: string
 }
 
-export interface StrapiChangePasswordRequest {
+export interface StrapiChangePasswordParams {
   currentPassword: string
   password: string
   passwordConfirmation: string

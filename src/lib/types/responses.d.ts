@@ -5,23 +5,23 @@ export interface StrapiErrorResponse {
   details: Record<string, unknown>
 }
 
-export interface StrapiResponseData<T> {
+export interface StrapiDataResponse<T> {
   id: number
   attributes: T
   meta: Record<string, unknown>
 }
 
 export interface StrapiResponse<T> {
-  data: StrapiResponseData<T> | StrapiResponseData<T>[]
+  data: StrapiDataResponse<T> | StrapiDataResponse<T>[]
   meta: Record<string, unknown>
 }
 
-export interface StrapiResponseSingle<T> {
-  data: StrapiResponseData<T>
+export interface StrapiSingleResponse<T> {
+  data: StrapiDataResponse<T>
   meta: Record<string, unknown>
 }
 
-export interface StrapiResponseMany<T> {
-  data: StrapiResponseData<T>[]
+export interface StrapiArrayResponse<T> {
+  data: StrapiDataResponse<T>[]
   meta: Record<string, unknown>
 }
