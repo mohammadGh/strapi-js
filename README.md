@@ -22,6 +22,9 @@ A nodejs/browser typescript/javascript sdk for Strapi headless CMS. You can use 
 # npm
 npm i strapi-js
 
+# pnpm
+pnpm add strapi-js
+
 # yarn
 yarn add strapi-js
 ```
@@ -38,7 +41,7 @@ const config = {
   prefix: '/api',
   version: 'v4',
   logType: 'auto',
-  retry: 0, // Number of retries for requests that have encountered an error
+  retry: 0, // Number of auto retries for requests that have encountered an error
 }
 
 // Usage: 2) obtain sdk instance
@@ -59,27 +62,27 @@ sdk.auth.changePassword({
 
 # Docs
 ## Auth Sdk
-This sdk i.e. `sdk.auth` contains APIs of Strapi related to path **`/api/auth`** for login, register, change-pass etc:
-- `login`: Login into strapi providing identifier (username/email) and password
-- `register`: Register new user providing username, email and password
-- `emailConfirmation`: Confirm user's account with confirmation code
-- `sendEmailConfirmation`: Resend email confirmation token to registered user
-- `changePassword`: Change user's password providing jwt-token, current-password and new-password
-- `forgotPassword`: Request to reset the password using a registered email address
-- `resetPassword`: Set new password using a code received with email
+This sdk i.e. **`sdk.auth`** contains APIs of Strapi related to path **`/api/auth`** for login, register, change-pass etc:
+- `login`: login into strapi providing identifier (username/email) and password
+- `register`: registers new user providing username, email and password
+- `emailConfirmation`: confirms user's account with confirmation code
+- `sendEmailConfirmation`: resends the activation email
+- `changePassword`: changes user's password providing jwt-token, current-password and new-password
+- `forgotPassword`: initiates a password reset request for a user's account using a registered email address
+- `resetPassword`: sets new password using a code received with email
 - `utilGetCurrentUser`: a utility function to get logged-in user info using the jwt-token (equal to `sdk.users.me()`)
 
 ## Users Sdk
-This sdk i.e. `sdk.users` contains APIs of Strapi related to path **`/api/users`** for getting and setting users:
-- `me`: get logged-in user info using the jwt-token
-- `getUsers`: get list of registered users
-- `getUserById`: get user's data by user's id
-- `updateUserById`: update user's data by user's id
-- `deleteUserById`: delete a user by user's id
+This sdk i.e. **`sdk.users`** contains APIs of Strapi related to path **`/api/users`** for getting and setting users:
+- `me`: gets logged-in user's info using the jwt-token
+- `getUsers`: gets a list of registered users
+- `getUserById`: gets user's data by user's id
+- `updateUserById`: updates user's data by user's id
+- `deleteUserById`: deletes a user by user's id
 
 ## Upload Sdk
-This sdk i.e. `sdk.upload` contains APIs of Strapi related to path **`/api/upload`** for working with files/media:
-- `upload`: upload a file and link it to a field of an entity
-- `getFiles`: get list of uploaded files
-- `getFileById`: get file data by file id
-- `deleteFileById`: delete a file by file id
+This sdk i.e. **`sdk.upload`** contains APIs of Strapi related to path **`/api/upload`** for working with files/media:
+- `upload`: uploads a file and simultaneously links it to a field in an entity
+- `getFiles`: gets a list of uploaded files
+- `getFileById`: gets details of a file using the file's id
+- `deleteFileById`: deletes a file using the file's id
