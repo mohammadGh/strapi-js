@@ -23,23 +23,20 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Setup Universal Package Manager
-        run: npm i -g @antfu/ni
-
       - name: Install
-        run: nci
+        run: pnpm i --force
 
       - name: Lint
-        run: nr lint
+        run: pnpm lint
 
       - name: Typecheck
-        run: nr typecheck
+        run: pnpm typecheck
 
       - name: Test
-        run: nr test
+        run: pnpm test
 
       - name: Test with Coverage
-        run: nr coverage
+        run: pnpm coverage
 
       - name: Upload Coverage Metric to Codecov
         uses: codecov/codecov-action@v3
