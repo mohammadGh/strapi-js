@@ -86,3 +86,11 @@ This sdk i.e. **`sdk.upload`** contains APIs of Strapi related to path **`/api/u
 - `getFiles`: gets a list of uploaded files
 - `getFileById`: gets details of a file using the file's id
 - `deleteFileById`: deletes a file using the file's id
+
+## Content Sdk (Collection Type)
+This sdk i.e. **`sdk.content`** contains APIs of Strapi related to path **`/api/:pluralApiId`** and **`/api/:pluralApiId/:documentId`** for working with collection type:
+- `find`: gets a list of entries stored in this `pluralApiId`.
+- `create`: creates a new entry.
+- `fineOne`: gets details of an entry using the entry's id
+- `update`: updates details of an entry using the entry's id
+- `deleteFileById`: deletes an entry using the entry's id
