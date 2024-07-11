@@ -4,6 +4,23 @@
 All considerable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 
+## v2.1.0
+
+[compare changes](https://github.com/mohammadGh/strapi-js/compare/v2.0.0...v2.1.0)
+
+### 🚀 Enhancements
+
+- Add content-sdk for collection-content type ([b1986dc](https://github.com/mohammadGh/strapi-js/commit/b1986dc))
+
+### 📖 Documentation
+
+- **readme:** Fix typos in sdk docs ([6878758](https://github.com/mohammadGh/strapi-js/commit/6878758))
+- Add content-sdk section ([0999ff1](https://github.com/mohammadGh/strapi-js/commit/0999ff1))
+
+### ❤️ Contributors
+
+- Mgh <m.ghoreshi@gmail.com>
+
 ## v2.0.0
 
 [compare changes](https://github.com/mohammadGh/strapi-js/compare/v1.2.0...v2.0.0)
