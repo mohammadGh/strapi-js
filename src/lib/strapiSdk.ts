@@ -4,6 +4,7 @@ import { newStrapiUsersSdk } from './strapiUsersSdk'
 import { UseStrapiOfetchAdapter } from './strapiFetcher'
 import type { StrapiConfig } from './types'
 import { newStrapiUploadSdk } from './strapiUploadSdk'
+import { newStrapiCollectionContentSdk } from './strapiCollectionContentSdk'
 
 export function newStrapiSdk(config: Partial<StrapiConfig>, defaultConfig?: Partial<StrapiConfig>) {
   const mergedConfig = mergeConfig(config, defaultConfig)
@@ -13,5 +14,6 @@ export function newStrapiSdk(config: Partial<StrapiConfig>, defaultConfig?: Part
     auth: newStrapiAuthSdk(StrapiFetchAdapter),
     users: newStrapiUsersSdk(StrapiFetchAdapter),
     upload: newStrapiUploadSdk(StrapiFetchAdapter),
+    content: newStrapiCollectionContentSdk(StrapiFetchAdapter),
   }
 }

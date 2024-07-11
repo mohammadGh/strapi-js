@@ -36,6 +36,19 @@ describe('users-sdk package exporting', () => {
   })
 })
 
+describe('content-sdk package exporting', () => {
+  it('should export content-sdk as a function with correct objects and methods', () => {
+    expect(typeof strapiSdk.content).toEqual('object')
+    expect(Object.getOwnPropertyNames (strapiSdk.content).sort()).toEqual([
+      'create',
+      'delete',
+      'find',
+      'findOne',
+      'update',
+    ])
+  })
+})
+
 describe('auth-sdk login method', () => {
   it('should throwing bad request without setting identifier or password parameter', async () => {
     try {
