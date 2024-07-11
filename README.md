@@ -93,4 +93,4 @@ This sdk i.e. **`sdk.content`** contains APIs of Strapi related to path **`/api/
 - `create`: creates a new entry.
 - `fineOne`: gets details of an entry using the entry's id
 - `update`: updates details of an entry using the entry's id
-- `deleteFileById`: deletes an entry using the entry's id
+- `delete`: deletes an entry using the entry's id
