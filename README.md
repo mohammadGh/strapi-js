@@ -47,13 +47,13 @@ const config = {
 // Usage: 2) obtain sdk instance
 const sdk = newStrapiSdk (config)
 
-// Usage: 3) use it
-const { user, jwt } = sdk.auth.login ({
+// Usage: 3) use it (login and change-password examples)
+const { user, jwt } = await sdk.auth.login ({
   identifier: 'mgh@gmail.com',
   password: 'pass123'
 })
 
-sdk.auth.changePassword({
+const { user: newUser, jwt: newJwt } = await sdk.auth.changePassword({
   currentPassword: 'pass123',
   password: 'pass123456',
   passwordConfirmation: 'pass123456'
