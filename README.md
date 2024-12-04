@@ -29,13 +29,14 @@ pnpm add strapi-js
 yarn add strapi-js
 ```
 
-### Import & Simple Usage:
+### Import & Simple Example:
 
-```js
-import { newStrapiSdk } from 'strapi-js'
-// CommonJS: const { newStrapiSdk } = require('strapi-js')
+```ts
+// Step 1) import package and related types
+import type { StrapiChangePasswordParams } from 'strapi-js'
+import { newStrapiSdk } from 'strapi-js' // CommonJS ⇒ const { newStrapiSdk } = require('strapi-js')
 
-// Usage: 1) provide config (the default configuration)
+// Step 2) Provide config and get the sdk instance (the default configuration)
 const config = {
   url: 'http://localhost:1337/',
   prefix: '/api',
@@ -43,21 +44,21 @@ const config = {
   logType: 'auto',
   retry: 0, // Number of auto retries for requests that have encountered an error
 }
-
-// Usage: 2) obtain sdk instance
 const sdk = newStrapiSdk (config)
 
-// Usage: 3) use it (login and change-password examples)
+// Step 3) Use the skd for example login and change-password:
 const { user, jwt } = await sdk.auth.login ({
   identifier: 'mgh@gmail.com',
   password: 'pass123'
 })
 
-const { user: newUser, jwt: newJwt } = await sdk.auth.changePassword({
+const changePasswordParams: StrapiChangePasswordParams = {
   currentPassword: 'pass123',
   password: 'pass123456',
   passwordConfirmation: 'pass123456'
-})
+}
+
+const { user: newUser, jwt: newJwt } = await sdk.auth.changePassword(changePasswordParams, { token: jwt })
 ```
 
 # Docs
