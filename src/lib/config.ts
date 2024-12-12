@@ -1,11 +1,11 @@
+import type { StrapiConfig } from './types'
 import defu from 'defu'
 import { joinURL, normalizeURL } from 'ufo'
-import type { StrapiConfig } from './types'
 
 export const strapiDefaultConfig: Required<StrapiConfig> = {
   url: 'http://localhost:1337/',
   prefix: '/api',
-  version: 'v4',
+  version: 'v5',
   logType: 'auto',
   retry: 0,
 }

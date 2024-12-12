@@ -1,14 +1,14 @@
 import type { FetchOptions } from 'ofetch'
 
 export type * from './locales'
-export type * from './users'
 export type * from './requests'
 export type * from './responses'
+export type * from './users'
 
 export interface StrapiConfig {
   url?: string
   prefix?: string
-  version?: 'v4'
+  version?: 'v4' | 'v5'
   logType?: 'auto' | 'fatal' | 'info' | 'debug'
   retry?: number
 }

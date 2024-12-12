@@ -40,7 +40,7 @@ import { newStrapiSdk } from 'strapi-js' // CommonJS ⇒ const { newStrapiSdk } 
 const config = {
   url: 'http://localhost:1337/',
   prefix: '/api',
-  version: 'v4',
+  version: 'v5',
   logType: 'auto',
   retry: 0, // Number of auto retries for requests that have encountered an error
 }
