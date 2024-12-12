@@ -1,6 +1,6 @@
-import { HttpResponse, http } from 'msw'
-import { type SetupServer, setupServer } from 'msw/node'
 import type { StrapiConfig } from '../../src/lib/types'
+import { http, HttpResponse } from 'msw'
+import { type SetupServer, setupServer } from 'msw/node'
 import { getBaseUrl } from '../../src/lib/config'
 import loginBadRequestResponse from './auth/loginBadRequestResponse.json'
 import loginInvalidIdentifierOrPasswordResponse from './auth/loginInvalidIdentifierOrPasswordResponse.json'

@@ -1,9 +1,9 @@
 import type { FetchError, FetchOptions } from 'ofetch'
-import { Headers, createFetch, ofetch } from 'ofetch'
-import { isTest } from 'std-env'
-import { stringify } from 'qs'
-import { consola } from 'consola/basic'
 import type { StrapiConfig, StrapiErrorResponse, StrapiFetchAdapter } from './types'
+import { consola } from 'consola/basic'
+import { createFetch, Headers, ofetch } from 'ofetch'
+import { stringify } from 'qs'
+import { isTest } from 'std-env'
 import { getBaseUrl } from './config'
 
 function defaultErrors(err: FetchError) {
@@ -24,10 +24,10 @@ export function UseStrapiOfetchAdapter(config: Required<StrapiConfig>): StrapiFe
     // if explicity a token provided, we use it for header-authorization
     if (fetchOptions.token) {
       headers.set('Authorization', `Bearer ${fetchOptions.token}`)
-      consola.info('Explicit jwt token provided and set into headers: ', headers.get('Authorization'))
+      consola.debug('[strapi-js] Explicit jwt token provided and set into headers: ', headers.get('Authorization'))
     }
     else if (!headers.get('Authorization')) {
-      consola.warn('No explicit jwt token nor authorization header found for request')
+      consola.debug('[strapi-js] No explicit jwt token nor authorization header found for request')
     }
 
     // request params are encoded as query-params in the request url using qs library
@@ -49,8 +49,6 @@ export function UseStrapiOfetchAdapter(config: Required<StrapiConfig>): StrapiFe
         ...fetchOptions,
         headers,
       }
-      consola.debug('Final headers for ofetch: ', requestOptions.headers)
-
       return await <T> fetchInstance(url, requestOptions)
     }
     catch (err: any) {

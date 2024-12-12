@@ -1,6 +1,6 @@
+import type { StrapiErrorResponse } from '../src/lib/types'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { newStrapiSdk } from '../src'
-import type { StrapiErrorResponse } from '../src/lib/types'
 import { strapiDefaultConfig } from '../src/lib/config'
 import { getStrapiAuthMockServer } from './mocks/strapiMockServer'
 
