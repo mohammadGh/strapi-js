@@ -4,6 +4,37 @@
 All considerable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
 
+## v2.1.1
+
+[compare changes](https://github.com/mohammadGh/strapi-js/compare/v2.1.0...v2.1.1)
+
+### 🚀 Enhancements
+
+- Set configuration default version to v5 ([30af0fc](https://github.com/mohammadGh/strapi-js/commit/30af0fc))
+- Add documentId to user-type and entiry response types ([c3bb9da](https://github.com/mohammadGh/strapi-js/commit/c3bb9da))
+
+### 🩹 Fixes
+
+- Use debug instead of info for lgging debug-related information ([62501b2](https://github.com/mohammadGh/strapi-js/commit/62501b2))
+
+### 📖 Documentation
+
+- Fix typo in content-sdk section ([be2756d](https://github.com/mohammadGh/strapi-js/commit/be2756d))
+- **readme:** Use await for calling login/change-password examples ([cecdce8](https://github.com/mohammadGh/strapi-js/commit/cecdce8))
+- **readme:** Add type class to simple-usage section ([29f3267](https://github.com/mohammadGh/strapi-js/commit/29f3267))
+
+### 🏡 Chore
+
+- Update deps ([07b05e7](https://github.com/mohammadGh/strapi-js/commit/07b05e7))
+
+### 🤖 CI
+
+- Using pnpm in ci build ([1a3ed6f](https://github.com/mohammadGh/strapi-js/commit/1a3ed6f))
+
+### ❤️ Contributors
+
+- Mgh <m.ghoreshi@gmail.com>
+
 ## v2.1.0
 
 [compare changes](https://github.com/mohammadGh/strapi-js/compare/v2.0.0...v2.1.0)
