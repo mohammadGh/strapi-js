@@ -7,6 +7,7 @@ export interface StrapiErrorResponse {
 
 export interface StrapiDataResponse<T> {
   id: number
+  documentId?: string
   attributes: T
   meta: Record<string, unknown>
 }
